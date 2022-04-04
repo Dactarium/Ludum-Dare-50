@@ -1,12 +1,15 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using TMPro;
 public class UIManager : MonoBehaviour
 {
     public static UIManager Instance {get; private set;}
 
     [SerializeField] private GameObject OnPlaying;
+    [SerializeField] private GameObject OnPause;
+    [SerializeField] private GameObject OnConditionComplete;
     [SerializeField] private GameObject OnEnd;
 
     public string TargetName{
@@ -73,7 +76,15 @@ public class UIManager : MonoBehaviour
     }
 
     public void ShowOnPlayingUI(bool show){
-         OnPlaying.SetActive(show);
+        OnPlaying.SetActive(show);
+    }
+
+    public void ShowOnPauseUI(bool show){
+        OnPause.SetActive(show);
+    }
+
+    public void ShowOnConditionComplete(bool show){
+        OnConditionComplete.SetActive(show);
     }
 
     public void ShowOnEndUI(bool show){
@@ -89,8 +100,12 @@ public class UIManager : MonoBehaviour
         _soulToDelay.gameObject.SetActive(show);
     }
 
+    public void ReturnMainMenu(){
+        SceneManager.LoadScene(0);
+    }
+
     IEnumerator DisableDeathInfo(){
-        yield return new WaitForSeconds(_infoTime);
+        yield return new WaitForSecondsRealtime(_infoTime);
         _deathInfo.gameObject.SetActive(false);
     }
 }

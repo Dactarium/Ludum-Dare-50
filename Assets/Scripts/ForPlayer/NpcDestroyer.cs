@@ -7,7 +7,7 @@ public class NpcDestroyer : MonoBehaviour
 
     [SerializeField] private GameObject _effect;
 
-    public event Action<NpcDestroyer> OnTargetDestory;
+    public event Action<NpcDestroyer> OnTargetDestroy;
 
     void Awake(){
         Instance = this;
@@ -26,7 +26,7 @@ public class NpcDestroyer : MonoBehaviour
         if(TargetManager.Instance.IsPlayer || isTarget){
             UIManager.Instance.DeathInfo = other.name + " died because of <color=#FF0000>" + DeathCausePicker.Instance.RandomCause + "</color>";
 
-            OnTargetDestory?.Invoke(this);
+            OnTargetDestroy?.Invoke(this);
 
             if(isTarget) TargetManager.Instance.pickTarget();
         }

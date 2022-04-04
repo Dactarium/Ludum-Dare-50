@@ -1,15 +1,18 @@
 using UnityEngine;
+using UnityEngine.Audio;
 using UnityEngine.Rendering;
 public class GameStateManager : MonoBehaviour
 {   
     public static GameStateManager Instance {get; private set;}
+
+    public AudioMixer Mixer;
 
     public GameObject Player;
     public GameObject TargetPointer;
 
     public Volume GlobalVolume;
 
-    public int WinCondition = 5;
+    public int WinCondition = 10;
     public int TotalSoulCollected = 0;
 
     public AudioClip WinSound;
@@ -19,6 +22,7 @@ public class GameStateManager : MonoBehaviour
     public readonly GameStartState GameStartState = new GameStartState();
     public readonly GamePlayingState GamePlayingState = new GamePlayingState();
     public readonly GameEndState GameEndState = new GameEndState();
+
 
     void Awake(){
         Instance = this;
@@ -40,5 +44,9 @@ public class GameStateManager : MonoBehaviour
         _currentState.BeginState(this);
 
         print("Current State : " + state.GetType());
+    }
+
+    public void EndGame(){
+        SwitchState(GameEndState);
     }
 }

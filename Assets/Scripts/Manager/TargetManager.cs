@@ -9,6 +9,8 @@ public class TargetManager : MonoBehaviour
     [SerializeField] private NpcSpawner _spawner;
     [SerializeField] private GameObject _targetIcon;
     [Range(0f, 1f)] [SerializeField] private float PlayerPercentage = 0.25f;
+
+    public float InitialDistance {get; private set;}
     [HideInInspector] public Transform Target;
     [HideInInspector] public bool IsPlayer = false;
     void Awake(){
@@ -32,8 +34,11 @@ public class TargetManager : MonoBehaviour
         if(Target == _player){
             IsPlayer = true;
             UIManager.Instance.ShowSoulToDelay(true);
+            InitialDistance = 150f;
             return;
         }
+
+        InitialDistance = (Target.transform.position - _player.transform.position).magnitude;
 
         Target.tag = "Target";
 

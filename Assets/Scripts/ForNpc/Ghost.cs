@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class Ghost : MonoBehaviour
 {   
+    public float Lifespan = 1.5f;
+
     void Start(){
         StartCoroutine(Destroy());
     }
@@ -14,7 +16,7 @@ public class Ghost : MonoBehaviour
     }
 
     IEnumerator Destroy(){
-        yield return new WaitForSeconds(1.5f);
+        yield return new WaitForSeconds(Lifespan);
         Destroy(gameObject);
     }
 }

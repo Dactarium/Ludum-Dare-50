@@ -44,7 +44,7 @@ public class PlayerController : MonoBehaviour
     }
 
     void LateUpdate(){
-        if(transform.position.y < -10) transform.position = Vector3.up;
+        if(transform.position.y < -10) transform.position = Vector3.up * .12f;
     }
 
     void Attack(){

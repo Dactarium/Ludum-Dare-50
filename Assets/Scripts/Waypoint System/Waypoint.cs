@@ -5,7 +5,7 @@ using UnityEditor;
 [ExecuteInEditMode]
 public class Waypoint : MonoBehaviour
 {   
-    [Range(0f, 5f)]
+    [Range(0f, 100f)]
     public float Radius = .5f;
     public Color Color = Color.yellow;
     [SerializeField] private List<Waypoint> _connections = new List<Waypoint>();
