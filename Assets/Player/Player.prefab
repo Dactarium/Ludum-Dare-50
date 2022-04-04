@@ -245,7 +245,7 @@ AudioSource:
   m_GameObject: {fileID: 3108621611834815818}
   m_Enabled: 1
   serializedVersion: 4
-  OutputAudioMixerGroup: {fileID: 0}
+  OutputAudioMixerGroup: {fileID: 8640027277118183500, guid: e6e613c9606f4074294b2c053890b5d4, type: 2}
   m_audioClip: {fileID: 0}
   m_PlayOnAwake: 0
   m_Volume: 1
@@ -1896,46 +1896,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 3112412391398011464}
     m_Modifications:
-    - target: {fileID: 1989462697, guid: 431dbce9d7d62814ba63a540408200f7, type: 3}
-      propertyPath: MaxDistance
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 1989462697, guid: 431dbce9d7d62814ba63a540408200f7, type: 3}
-      propertyPath: rolloffCustomCurve.m_Curve.Array.data[0].time
-      value: 0.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 1989462697, guid: 431dbce9d7d62814ba63a540408200f7, type: 3}
-      propertyPath: rolloffCustomCurve.m_Curve.Array.data[1].value
-      value: 0.4821167
-      objectReference: {fileID: 0}
-    - target: {fileID: 1989462697, guid: 431dbce9d7d62814ba63a540408200f7, type: 3}
-      propertyPath: panLevelCustomCurve.m_Curve.Array.data[0].value
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 1989462697, guid: 431dbce9d7d62814ba63a540408200f7, type: 3}
-      propertyPath: rolloffCustomCurve.m_Curve.Array.data[1].inSlope
-      value: -1.3107147
-      objectReference: {fileID: 0}
-    - target: {fileID: 1989462697, guid: 431dbce9d7d62814ba63a540408200f7, type: 3}
-      propertyPath: rolloffCustomCurve.m_Curve.Array.data[0].inWeight
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1989462697, guid: 431dbce9d7d62814ba63a540408200f7, type: 3}
-      propertyPath: rolloffCustomCurve.m_Curve.Array.data[1].inWeight
-      value: 0.28571427
-      objectReference: {fileID: 0}
-    - target: {fileID: 1989462697, guid: 431dbce9d7d62814ba63a540408200f7, type: 3}
-      propertyPath: rolloffCustomCurve.m_Curve.Array.data[1].outSlope
-      value: -1.3107147
-      objectReference: {fileID: 0}
-    - target: {fileID: 1989462697, guid: 431dbce9d7d62814ba63a540408200f7, type: 3}
-      propertyPath: rolloffCustomCurve.m_Curve.Array.data[0].outWeight
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1989462697, guid: 431dbce9d7d62814ba63a540408200f7, type: 3}
-      propertyPath: rolloffCustomCurve.m_Curve.Array.data[1].outWeight
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 1353487328190166, guid: 431dbce9d7d62814ba63a540408200f7, type: 3}
       propertyPath: m_Name
       value: SM_Wep_SpiritDemon_01

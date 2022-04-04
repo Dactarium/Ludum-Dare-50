@@ -18,9 +18,10 @@ public class GameEndState : GameBaseState
         bool isWin = gameStateManager.TotalSoulCollected >= gameStateManager.WinCondition;
         UIManager.Instance.ShowEndStatus(isWin);
 
-        AudioSource playerSource = gameStateManager.Player.GetComponent<AudioSource>();
-        playerSource.clip = (isWin)? gameStateManager.WinSound: gameStateManager.LoseSound;
-        playerSource.Play();
+        AudioSource musicSource = MusicManager.Instance.GetComponent<AudioSource>();
+        musicSource.Stop();
+        musicSource.clip = (isWin)? gameStateManager.WinSound: gameStateManager.LoseSound;
+        musicSource.Play();
 
         gameStateManager.StartCoroutine(Restart());
     }
@@ -40,7 +41,6 @@ public class GameEndState : GameBaseState
     IEnumerator Restart(){
         yield return new WaitForSecondsRealtime(5f);
         Time.timeScale = 1f;
-        Scene scene = SceneManager.GetActiveScene();
-        SceneManager.LoadScene(scene.name);
+        SceneManager.LoadScene(0);
     }
 }

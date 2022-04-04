@@ -2,9 +2,9 @@ using UnityEngine;
 using System;
 public class GamePlayingState : GameBaseState
 {
-    private float _timer = 25f;
-    private float _timeGain = 15f;
-    private float _maxTime = 25f;
+    private float _timer = 45f;
+    private float _timeGain = 10f;
+    private float _maxTime = 45f;
 
     private int _soulCounter = 0;
     private int _soulToDelay = 5;
