@@ -10,6 +10,14 @@ public class GameEndState : GameBaseState
    
     public override void BeginState(GameStateManager gameStateManager)
     {   
+        #region Destroy player and spawn ghost
+        GameObject.Destroy(gameStateManager.Player);
+
+        GameObject ghost = GameObject.Instantiate(gameStateManager.Ghost);
+        ghost.transform.position = gameStateManager.Player.transform.position;
+        ghost.transform.eulerAngles = -90f * Vector3.right + gameStateManager.Player.transform.eulerAngles.y * Vector3.up;
+        #endregion
+
         gameStateManager.Mixer.SetFloat("SFX", -80);
         
         Time.timeScale = 0.25f;

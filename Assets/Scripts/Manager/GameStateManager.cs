@@ -8,6 +8,7 @@ public class GameStateManager : MonoBehaviour
     public AudioMixer Mixer;
 
     public GameObject Player;
+    public GameObject Ghost;
     public GameObject TargetPointer;
 
     public Volume GlobalVolume;

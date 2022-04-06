@@ -20,10 +20,18 @@ public class InputManager : MonoBehaviour
             return _mouse;
         }
     }
+
+    public float Scroll {
+        get{
+            return _scroll;
+        }
+    }
+    
     public bool Attack {get; private set;} = false;
     public bool Pause {get; private set;} = false;
     private Vector2 _movement;
     private Vector2 _mouse;
+    private float _scroll;
 
     private bool _axisFire = false;
     void Awake(){
@@ -39,6 +47,10 @@ public class InputManager : MonoBehaviour
         _mouse.x = Input.GetAxis("Mouse X");
         _mouse.y = Input.GetAxis("Mouse Y");
 
+        //Scroll Input
+        _scroll = Input.mouseScrollDelta.y;
+
+        //Attack Input
         if(Input.GetAxisRaw("Fire1") != 0)
         {
             if(_axisFire == false) _axisFire = true;
