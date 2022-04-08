@@ -8,6 +8,6 @@ public class TargetFollower : MonoBehaviour
 
     [SerializeField] private Vector3 _offset;
     void Update(){
-        transform.position = target.position + _offset;
+        if(target) transform.position = target.position + _offset;
     }
 }

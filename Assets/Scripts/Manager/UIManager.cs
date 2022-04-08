@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.SceneManagement;
 using TMPro;
 public class UIManager : MonoBehaviour
@@ -9,7 +10,9 @@ public class UIManager : MonoBehaviour
 
     [SerializeField] private GameObject OnPlaying;
     [SerializeField] private GameObject OnPause;
+    [SerializeField] private GameObject OnPauseSelected;
     [SerializeField] private GameObject OnConditionComplete;
+    [SerializeField] private GameObject OnConditionCompleteSelected;
     [SerializeField] private GameObject OnEnd;
 
     public string TargetName{
@@ -53,11 +56,13 @@ public class UIManager : MonoBehaviour
     }
     [SerializeField] private TextMeshProUGUI _soulCounter;
 
+    private Coroutine _deathInfoCoroutine;
     public string DeathInfo{
         set{
             _deathInfo.text = value;
             _deathInfo.gameObject.SetActive(true);
-            StartCoroutine(DisableDeathInfo());
+            if(_deathInfoCoroutine != null)StopCoroutine(_deathInfoCoroutine);
+            _deathInfoCoroutine = StartCoroutine(DisableDeathInfo());
         }
         get{
             return _deathInfo.text;
@@ -81,10 +86,18 @@ public class UIManager : MonoBehaviour
 
     public void ShowOnPauseUI(bool show){
         OnPause.SetActive(show);
+
+        if(show){
+            SelectEventSystemCurrent(OnPauseSelected);
+        }
     }
 
     public void ShowOnConditionComplete(bool show){
         OnConditionComplete.SetActive(show);
+
+        if(show){
+            SelectEventSystemCurrent(OnConditionCompleteSelected);
+        }
     }
 
     public void ShowOnEndUI(bool show){
@@ -102,6 +115,13 @@ public class UIManager : MonoBehaviour
 
     public void ReturnMainMenu(){
         SceneManager.LoadScene(0);
+    }
+
+    private void SelectEventSystemCurrent(GameObject selected){
+
+        EventSystem.current.SetSelectedGameObject(null);
+        EventSystem.current.SetSelectedGameObject(selected);
+
     }
 
     IEnumerator DisableDeathInfo(){

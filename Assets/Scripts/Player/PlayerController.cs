@@ -17,7 +17,7 @@ public class PlayerController : MonoBehaviour
     public bool OnAttack{
         set{
             if(value)_weapon.GetComponent<AudioSource>().Play();
-            _weapon.GetComponent<BoxCollider>().enabled = value;
+            //_weapon.GetComponent<BoxCollider>().enabled = value;
         }
     }
     void Start()

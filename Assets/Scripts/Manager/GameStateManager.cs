@@ -4,7 +4,7 @@ using UnityEngine.Rendering;
 public class GameStateManager : MonoBehaviour
 {   
     public static GameStateManager Instance {get; private set;}
-
+    [Header("Global")]
     public AudioMixer Mixer;
 
     public GameObject Player;
@@ -18,6 +18,9 @@ public class GameStateManager : MonoBehaviour
 
     public AudioClip WinSound;
     public AudioClip LoseSound;
+
+    [Header("Playing")]
+    public PlayingStateSettings playingStateSettings;
 
     private GameBaseState _currentState;
     public readonly GameStartState GameStartState = new GameStartState();

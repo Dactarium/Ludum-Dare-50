@@ -39,6 +39,12 @@ public class InputManager : MonoBehaviour
     }
 
     void Update(){
+        if(Input.GetKeyDown(KeyCode.Escape) || Input.GetKeyDown(KeyCode.Pause) || Input.GetKeyDown(KeyCode.JoystickButton7)){
+            TriggerPause();
+        }
+
+        if(Pause) return;
+
         //Move Input
         _movement.x = Input.GetAxis("Horizontal");
         _movement.y = Input.GetAxis("Vertical");
@@ -50,6 +56,14 @@ public class InputManager : MonoBehaviour
         //Scroll Input
         _scroll = Input.mouseScrollDelta.y;
 
+        if(Input.GetKeyDown(KeyCode.JoystickButton4)){
+            _scroll += 1f;
+        }
+        
+        if(Input.GetKeyDown(KeyCode.JoystickButton5)){
+            _scroll -= 1f;
+        }
+
         //Attack Input
         if(Input.GetAxisRaw("Fire1") != 0)
         {
@@ -59,10 +73,6 @@ public class InputManager : MonoBehaviour
         if(Input.GetAxisRaw("Fire1") == 0)
         {
             _axisFire = false;
-        }
-
-        if(Input.GetKeyDown(KeyCode.Escape) || Input.GetKeyDown(KeyCode.Pause)){
-            TriggerPause();
         }
 
         //Use Input
@@ -79,6 +89,5 @@ public class InputManager : MonoBehaviour
         _movement = Vector2.zero;
         _mouse = Vector2.zero;
     }
-
     
 }

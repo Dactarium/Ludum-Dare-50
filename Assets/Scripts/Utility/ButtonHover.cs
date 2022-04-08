@@ -5,14 +5,13 @@ using UnityEngine.EventSystems;
 using UnityEngine.UI;
 using TMPro;
 
-public class ButtonHover : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler {
+public class ButtonHover : MonoBehaviour, ISelectHandler, IDeselectHandler {
     
     [SerializeField] private Color hoverColor;
-    private TextMeshProUGUI _text;
+    [SerializeField] private TextMeshProUGUI _text;
     private Color _default;
 
-    void Start (){
-        _text = GetComponentInChildren<TextMeshProUGUI>();
+    void Awake (){
         _default = _text.color;
     }
 
@@ -20,15 +19,14 @@ public class ButtonHover : MonoBehaviour, IPointerEnterHandler, IPointerExitHand
         _text.color = _default;
     }
 
-    public void OnPointerEnter (PointerEventData eventData)
+    public void OnSelect (BaseEventData eventData)
     {
         _text.color = hoverColor;
     }
 
-    public void OnPointerExit (PointerEventData eventData)
+    public void OnDeselect (BaseEventData eventData)
     {
         _text.color = _default;
     }
-
 
  }
