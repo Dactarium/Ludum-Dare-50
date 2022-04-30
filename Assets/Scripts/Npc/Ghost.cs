@@ -1,13 +1,16 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class Ghost : MonoBehaviour
 {   
     public float Lifespan = 1.5f;
-
+    public bool NoEffect = false;
+    [SerializeField] private GameObject _spawnEffect;
     void Start(){
         StartCoroutine(Destroy());
+        if(NoEffect) return;
+        _spawnEffect = Instantiate(_spawnEffect);
+        _spawnEffect.transform.position = transform.position; 
     }
 
     void Update()
@@ -18,5 +21,6 @@ public class Ghost : MonoBehaviour
     IEnumerator Destroy(){
         yield return new WaitForSeconds(Lifespan);
         Destroy(gameObject);
+        if(!NoEffect) Destroy(_spawnEffect);
     }
 }

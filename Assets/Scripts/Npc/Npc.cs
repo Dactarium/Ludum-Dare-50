@@ -1,9 +1,12 @@
 using System.Collections;
 using System.Collections.Generic;
+using System;
 using UnityEngine;
 
 public class Npc : MonoBehaviour
 {
+    public event Action<Npc> OnDeath;
+
     [HideInInspector] public Waypoint CurrentWaypoint;
     [HideInInspector] public NpcSpawner Spawner;
     public NamePicker.Type nameType;
@@ -24,7 +27,7 @@ public class Npc : MonoBehaviour
         transform.position = _targetPosition;
 
         _animator.enabled = false;
-        StartCoroutine(EnableMove(Random.Range(0f, 1f)));
+        StartCoroutine(EnableMove(UnityEngine.Random.Range(0f, 1f)));
     }
 
     void Update(){
@@ -40,7 +43,7 @@ public class Npc : MonoBehaviour
 
             if(connections.Count == 0) return;
             
-            Waypoint connection = connections[Random.Range(0, connections.Count)];
+            Waypoint connection = connections[UnityEngine.Random.Range(0, connections.Count)];
                
             if(connections.Count>0)nextWaypoint = connection;
             else nextWaypoint = _previousWaypoint;
@@ -58,7 +61,7 @@ public class Npc : MonoBehaviour
 
     private List<Waypoint> GetConnections(){
         List<Waypoint> connections = CurrentWaypoint.Connections;
-        if(Random.Range(0f, 1f) >= _previousBias) connections.Remove(_previousWaypoint);
+        if(UnityEngine.Random.Range(0f, 1f) >= _previousBias) connections.Remove(_previousWaypoint);
         return connections;
     }
 
@@ -71,8 +74,7 @@ public class Npc : MonoBehaviour
     IEnumerator EnableMove(float time){
         yield return new WaitForSeconds(time);
         _animator.enabled = true;
-        GetComponent<AudioSource>().Play();
-
+        if(GetComponent<AudioSource>())GetComponent<AudioSource>().Play();
     }
 
     public void Kill(){
@@ -85,7 +87,8 @@ public class Npc : MonoBehaviour
         ghost.transform.position = transform.position;
         ghost.transform.eulerAngles = -90f * Vector3.right + transform.eulerAngles.y * Vector3.up;
 
-        Spawner.Spawn(Spawner.GetComponent<WaypointRoot>().GetFarestWaypoint(transform.position));
+        Spawner.Spawn(ConfigManager.Instance.WalkableWaypointRoot.GetFarestWaypoint(transform.position));
 
+        OnDeath?.Invoke(this);
     }
 }

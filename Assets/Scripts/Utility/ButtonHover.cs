@@ -5,7 +5,7 @@ using UnityEngine.EventSystems;
 using UnityEngine.UI;
 using TMPro;
 
-public class ButtonHover : MonoBehaviour, ISelectHandler, IDeselectHandler {
+public class ButtonHover : MonoBehaviour, ISelectHandler, IDeselectHandler, IPointerEnterHandler{
     
     [SerializeField] private Color hoverColor;
     [SerializeField] private TextMeshProUGUI _text;
@@ -27,6 +27,11 @@ public class ButtonHover : MonoBehaviour, ISelectHandler, IDeselectHandler {
     public void OnDeselect (BaseEventData eventData)
     {
         _text.color = _default;
+    }
+
+    public void OnPointerEnter (PointerEventData eventData)
+    {
+        EventSystem.current.SetSelectedGameObject(gameObject);
     }
 
  }

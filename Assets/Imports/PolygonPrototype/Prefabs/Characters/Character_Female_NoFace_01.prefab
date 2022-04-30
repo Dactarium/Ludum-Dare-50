@@ -1527,6 +1527,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: db0d3391ffdf2f74997c4b7271705e4a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  Lifespan: 1.5
+  _spawnEffect: {fileID: 1247041532771308, guid: 59b2149974e169c4ea4387e7322c9c91, type: 3}
 --- !u!1 &1916605273135572
 GameObject:
   m_ObjectHideFlags: 0

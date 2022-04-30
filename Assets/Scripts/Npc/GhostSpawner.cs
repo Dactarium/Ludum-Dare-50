@@ -22,6 +22,7 @@ public class GhostSpawner : MonoBehaviour
             spawned.transform.parent = _parent;
             spawned.transform.forward = spawned.transform.up;
             spawned.GetComponent<Ghost>().Lifespan = Lifespan;
+            spawned.GetComponent<Ghost>().NoEffect = true;
 
             GameObject deathLight = Instantiate(_deathLight);
             deathLight.transform.position = new Vector3(spawned.transform.position.x, 0, spawned.transform.position.z);

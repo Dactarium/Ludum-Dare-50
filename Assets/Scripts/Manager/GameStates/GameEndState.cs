@@ -27,7 +27,7 @@ public class GameEndState : GameBaseState
 
         UIManager.Instance.ShowOnEndUI(true);
 
-        bool isWin = gameStateManager.TotalSoulCollected >= gameStateManager.WinCondition;
+        bool isWin = gameStateManager.TotalTaskCompleted >= gameStateManager.TargetTaskCount;
         UIManager.Instance.ShowEndStatus(isWin);
 
         AudioSource musicSource = MusicManager.Instance.GetComponent<AudioSource>();

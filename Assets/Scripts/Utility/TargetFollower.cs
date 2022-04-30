@@ -4,10 +4,10 @@ using UnityEngine;
 
 public class TargetFollower : MonoBehaviour
 {
-    [SerializeField] private Transform target;
+    public Transform Target;
 
     [SerializeField] private Vector3 _offset;
     void Update(){
-        if(target) transform.position = target.position + _offset;
+        if(Target) transform.position = Target.position + Target.TransformDirection(_offset);
     }
 }

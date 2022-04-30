@@ -13,14 +13,14 @@ public class GameStateManager : MonoBehaviour
 
     public Volume GlobalVolume;
 
-    public int WinCondition = 10;
-    public int TotalSoulCollected = 0;
+    public int TargetTaskCount = 13;
+    public int TotalTaskCompleted = 0;
 
     public AudioClip WinSound;
     public AudioClip LoseSound;
 
     [Header("Playing")]
-    public PlayingStateSettings playingStateSettings;
+    public float StartTime;
 
     private GameBaseState _currentState;
     public readonly GameStartState GameStartState = new GameStartState();
@@ -35,7 +35,7 @@ public class GameStateManager : MonoBehaviour
         _currentState = GameStartState;
         _currentState.BeginState(this);
 
-        print("Current State : " + _currentState.GetType());
+        print("Current State: " + _currentState.GetType());
     }
 
     void Update(){

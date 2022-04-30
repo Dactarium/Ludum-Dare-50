@@ -169,7 +169,7 @@ GameObject:
   - component: {fileID: 2147220692483579662}
   m_Layer: 0
   m_Name: Player
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: -5397416234189338067, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -336,7 +336,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _moveSpeed: 10
-  _weapon: {fileID: 570528986090690938}
+  _reaper: {fileID: 570528986090690938}
 --- !u!114 &2147220692483579662
 MonoBehaviour:
   m_ObjectHideFlags: 0

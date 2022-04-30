@@ -4,16 +4,21 @@ using UnityEngine;
 
 public class NpcSpawner : MonoBehaviour
 {   
+    
+    [SerializeField] private GameObject[] _npc; 
+    [SerializeField] private int _spawnCount = 1;
+    [SerializeField] private float _npcSpeed = 1f;
+
+    private Transform _waypointRoot;
+
     private List<GameObject> spawnedNpcs;
-    [SerializeField] private Transform _parent;
-    public GameObject[] Npc; 
-    public int SpawnCount = 1;
-    public float NpcSpeed = 1f;
 
     void Start()
     {   
+        _waypointRoot = ConfigManager.Instance.WalkableWaypointRoot.transform;
+
         spawnedNpcs = new List<GameObject>();
-        Spawn(SpawnCount);
+        Spawn(_spawnCount);
     }
 
     public void Spawn() => Spawn(1);
@@ -21,14 +26,14 @@ public class NpcSpawner : MonoBehaviour
     public void Spawn(int spawnCount, int index){
         for(int i = 0; i < spawnCount; i++){
             
-            GameObject spawned = Instantiate(Npc[(index > 0)? index: Random.Range(0, Npc.Length)]);
+            GameObject spawned = Instantiate(_npc[(index > 0)? index: Random.Range(0, _npc.Length)]);
             Npc npc = spawned.GetComponent<Npc>();
-            npc.CurrentWaypoint = transform.GetChild(Random.Range(0, transform.childCount)).GetComponent<Waypoint>();
-            npc.Speed = NpcSpeed;
+            npc.CurrentWaypoint = _waypointRoot.GetChild(Random.Range(0, _waypointRoot.childCount)).GetComponent<Waypoint>();
+            npc.Speed = _npcSpeed;
             npc.Spawner = this;
             npc.name = NamePicker.Instance.RandomName(npc.nameType);
 
-            spawned.transform.parent = _parent;
+            spawned.transform.parent = transform;
 
 
             spawnedNpcs.Add(spawned);
@@ -36,14 +41,14 @@ public class NpcSpawner : MonoBehaviour
     }
 
     public void Spawn(Waypoint waypoint){
-        GameObject spawned = Instantiate(Npc[Random.Range(0, Npc.Length)]);
+        GameObject spawned = Instantiate(_npc[Random.Range(0, _npc.Length)]);
         Npc npc = spawned.GetComponent<Npc>();
         npc.CurrentWaypoint = waypoint;
-        npc.Speed = NpcSpeed;
+        npc.Speed = _npcSpeed;
         npc.Spawner = this;
         npc.name = NamePicker.Instance.RandomName(npc.nameType);
 
-        spawned.transform.parent = _parent;
+        spawned.transform.parent = transform;
 
         spawnedNpcs.Add(spawned);
     }

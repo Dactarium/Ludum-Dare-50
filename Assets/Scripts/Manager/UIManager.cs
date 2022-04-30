@@ -15,25 +15,15 @@ public class UIManager : MonoBehaviour
     [SerializeField] private GameObject OnConditionCompleteSelected;
     [SerializeField] private GameObject OnEnd;
 
-    public string TargetName{
+    public string MainEventDetail{
         set{
-            _targetName.text = value;
+            _mainEventDetail.text = value;
         }
         get{
-            return _targetName.text;
+            return _mainEventDetail.text;
         }
     }
-    [SerializeField] TextMeshProUGUI _targetName;
-    
-    public string SoulToDelay{
-        set{
-            _soulToDelay.text = "Need <color=#00AAFF>" + value + "</color> souls to delay";
-        }
-        get{
-            return _soulToDelay.text;
-        }
-    }
-    [SerializeField] TextMeshProUGUI _soulToDelay;
+    [SerializeField] TextMeshProUGUI _mainEventDetail;
 
     public string Timer{
         set{
@@ -46,15 +36,15 @@ public class UIManager : MonoBehaviour
 
     [SerializeField] private TextMeshProUGUI _timer;
 
-    public string SoulCounter{
+    public string TaskCounter{
         set{
-            _soulCounter.text = value;
+            _taskCounter.text = value;
         }
         get{
-            return _deathInfo.text;
+            return _taskCounter.text;
         }
     }
-    [SerializeField] private TextMeshProUGUI _soulCounter;
+    [SerializeField] private TextMeshProUGUI _taskCounter;
 
     private Coroutine _deathInfoCoroutine;
     public string DeathInfo{
@@ -87,17 +77,13 @@ public class UIManager : MonoBehaviour
     public void ShowOnPauseUI(bool show){
         OnPause.SetActive(show);
 
-        if(show){
-            SelectEventSystemCurrent(OnPauseSelected);
-        }
+        if(show) SelectEventSystemCurrent(OnPauseSelected);
     }
 
     public void ShowOnConditionComplete(bool show){
         OnConditionComplete.SetActive(show);
 
-        if(show){
-            SelectEventSystemCurrent(OnConditionCompleteSelected);
-        }
+        if(show) SelectEventSystemCurrent(OnConditionCompleteSelected);
     }
 
     public void ShowOnEndUI(bool show){
@@ -107,10 +93,6 @@ public class UIManager : MonoBehaviour
     public void ShowEndStatus(bool isWin){
         _win.gameObject.SetActive(isWin);
         _lose.gameObject.SetActive(!isWin);
-    }
-
-    public void ShowSoulToDelay(bool show){
-        _soulToDelay.gameObject.SetActive(show);
     }
 
     public void ReturnMainMenu(){

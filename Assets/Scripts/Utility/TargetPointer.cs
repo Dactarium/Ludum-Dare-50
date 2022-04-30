@@ -4,27 +4,29 @@ using UnityEngine;
 
 public class TargetPointer : MonoBehaviour
 {   
-    private TargetManager _targetManager;
-    void Start()
+    public static TargetPointer Instance {get; private set;}
+
+    public Transform Target;
+    
+    void Awake()
     {
-        _targetManager = TargetManager.Instance;
+        Instance = this;
+        Instance.gameObject.SetActive(false);
     }
 
     void LateUpdate()
     {
-        PointTarget();
+        if(Target)PointTarget();
+        else Unknown();
     }
 
     void PointTarget(){
-        if(_targetManager.IsPlayer){
-            Unknown();
-        }
-        transform.LookAt(_targetManager.Target);
+        transform.LookAt(Target);
         transform.eulerAngles = Vector3.up * transform.eulerAngles.y;
     }
 
     void Unknown(){
-        float angle =  (transform.eulerAngles.y + Time.deltaTime * 360f) % 360;
+        float angle = (transform.eulerAngles.y + Time.deltaTime * 360f) % 360;
         transform.eulerAngles = Vector3.up * angle;
     }
 

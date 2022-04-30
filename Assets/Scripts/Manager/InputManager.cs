@@ -81,7 +81,7 @@ public class InputManager : MonoBehaviour
     
     public void TriggerPause(){
         Pause = !Pause;
-        if(Pause) OnPause?.Invoke(this);
+        if(Pause)OnPause?.Invoke(this);
         else OnUnpause?.Invoke(this);
     }
 

@@ -10,8 +10,8 @@ public class GameStartState : GameBaseState
     {
         InputManager.Instance.enabled = false;
 
-        if(!gameStateManager.GlobalVolume.profile.TryGet(out _colorAdjustments)) throw new System.Exception(nameof(_colorAdjustments));
-        _colorAdjustments.saturation.Override(-20);
+        // if(!gameStateManager.GlobalVolume.profile.TryGet(out _colorAdjustments)) throw new System.Exception(nameof(_colorAdjustments));
+        // _colorAdjustments.saturation.Override(-20);
 
         if(!gameStateManager.GlobalVolume.profile.TryGet(out _filmGrain)) throw new System.Exception(nameof(_filmGrain));
         _filmGrain.active = PlayerPrefs.GetInt("FilmGrain", 1) == 1;

@@ -13,11 +13,10 @@ public class PlayerController : MonoBehaviour
     private PlayerAnimationManager _animationManager;
 
     [Header("Weapon Attack")]
-    [SerializeField] private NpcDestroyer _weapon;
+    [SerializeField] private Reaper _reaper;
     public bool OnAttack{
         set{
-            if(value)_weapon.GetComponent<AudioSource>().Play();
-            //_weapon.GetComponent<BoxCollider>().enabled = value;
+            if(value)_reaper.GetComponent<AudioSource>().Play();
         }
     }
     void Start()

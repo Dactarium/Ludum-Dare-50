@@ -4,16 +4,17 @@
 TagManager:
   serializedVersion: 2
   tags:
-  - Npc
   - Target
+  - Lost
+  - Human
   layers:
   - Default
   - TransparentFX
   - Ignore Raycast
-  - 
+  - World
   - Water
   - UI
-  - 
+  - Overworld
   - 
   - 
   - 
