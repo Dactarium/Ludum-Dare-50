@@ -1,6 +1,5 @@
+using System.Collections;
 using UnityEngine;
-using UnityEngine.Audio;
-using UnityEngine.Rendering.Universal;
 public class GamePlayingState : GameBaseState
 {
     private InputManager _inputManager;
@@ -61,27 +60,32 @@ public class GamePlayingState : GameBaseState
 
     void OnTargetTaskCountReach(TaskCounter taskCounter){
         _isTargetTaskCountReached = true;
-        InputManager.Instance.TriggerPause();
+        _inputManager.TriggerPause();
     }
 
     void OnPause(InputManager inputManager){
-        Time.timeScale = 0f;
-
         if(_isTargetTaskCountReached){
             UIManager.Instance.ShowOnConditionComplete(true);
         }else{
             UIManager.Instance.ShowOnPauseUI(true);
         }
+
+        _inputManager.StartCoroutine(ChangeTimeScale(0));
     }
 
     void OnUnpause(InputManager inputManager){
-        Time.timeScale = 1f;
-
         if(_isTargetTaskCountReached){
             UIManager.Instance.ShowOnConditionComplete(false);
         }else{
             UIManager.Instance.ShowOnPauseUI(false);
         }
+
+        _inputManager.StartCoroutine(ChangeTimeScale(1));
+    }
+
+    IEnumerator ChangeTimeScale(float scale){
+        yield return new WaitForEndOfFrame();
+        Time.timeScale = scale;
     }
 
 }

@@ -75,11 +75,11 @@ public class InputManager : MonoBehaviour
             _axisFire = false;
         }
 
-        //Use Input
         Attack = _axisFire;
     }
     
     public void TriggerPause(){
+        print(!Pause);
         Pause = !Pause;
         if(Pause)OnPause?.Invoke(this);
         else OnUnpause?.Invoke(this);
