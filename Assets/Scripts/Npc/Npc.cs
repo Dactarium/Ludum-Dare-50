@@ -20,7 +20,7 @@ public class Npc : MonoBehaviour
     private Vector3 _targetPosition;
     private Rigidbody _rigidbody;
     private Animator _animator;
-    void Start(){
+    protected virtual void Start(){
         _rigidbody = GetComponent<Rigidbody>();
         _animator = GetComponent<Animator>();
         _targetPosition = CurrentWaypoint.RandomPosition;

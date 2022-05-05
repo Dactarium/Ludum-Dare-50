@@ -773,7 +773,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1483886494116078}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1bf166a6a36fed24d91e5e3177789b12, type: 3}
+  m_Script: {fileID: 11500000, guid: 34f1216370d464e41913c6d0dc5e967e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   CurrentWaypoint: {fileID: 0}
@@ -781,6 +781,9 @@ MonoBehaviour:
   nameType: 2
   Speed: 0.5
   OnDestroyPrefab: {fileID: 1483886494116078, guid: 1617cfd7d856042459cec623d111378d, type: 3}
+  _possibleBuffs:
+  - {fileID: 11400000, guid: 506891f58a847aa4ea79bc265d255719, type: 2}
+  - {fileID: 11400000, guid: 60ce5ca711dc04749ab05c2ef0cd73d9, type: 2}
 --- !u!1 &1486608995778862
 GameObject:
   m_ObjectHideFlags: 0

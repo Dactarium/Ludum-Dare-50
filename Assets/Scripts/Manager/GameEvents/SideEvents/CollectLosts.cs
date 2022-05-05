@@ -29,6 +29,6 @@ public class CollectLosts : SideEvent
     }
 
     void LostCollected(Reaper reaper){
-        Timer.Instance.Add(_timeGain);
+        Timer.Instance.Add(_timeGain * reaper.LastCollectedLostBuff.ColletingTimeGainMultiplier);
     }
 }

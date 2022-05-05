@@ -4,8 +4,11 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {   
-    [SerializeField] private float _moveSpeed = 1f;
-
+    [SerializeField] private float _maxMoveSpeed;
+    [SerializeField] private float _minMoveSpeed;
+    [SerializeField] private float _baseMoveSpeed;
+    private float _moveSpeed;
+    private float _targetMoveSpeed;
     private readonly  float _gravityValue = -9.81f;
 
     private InputManager _inputManager;
@@ -19,6 +22,12 @@ public class PlayerController : MonoBehaviour
             if(value)_reaper.GetComponent<AudioSource>().Play();
         }
     }
+
+    void Awake(){
+        _moveSpeed = _baseMoveSpeed;
+        _targetMoveSpeed = _moveSpeed;
+    }
+
     void Start()
     {
         name = "You";
@@ -66,5 +75,30 @@ public class PlayerController : MonoBehaviour
     void RotateDirection(Vector2 direction){
         float angle = Mathf.Atan2(direction.x, direction.y) * Mathf.Rad2Deg;
         transform.eulerAngles = Vector3.up * angle;
+    }
+
+    public void StartLostBuff(LostBuff buff){
+        StartCoroutine(ApplyBuff(buff));
+    }
+
+    IEnumerator ApplyBuff(LostBuff buff){
+        float speedBuff = _baseMoveSpeed * buff.SpeedMultiplier - _baseMoveSpeed;
+
+        speedBuff = (speedBuff + _targetMoveSpeed > _maxMoveSpeed)? _maxMoveSpeed - _targetMoveSpeed: (speedBuff + _targetMoveSpeed < _minMoveSpeed)? _minMoveSpeed - _targetMoveSpeed: speedBuff; 
+
+        _targetMoveSpeed += speedBuff;
+        for(int i = 0; i < 10 ; i++){
+            yield return new WaitForSeconds(0.1f);
+            _moveSpeed += speedBuff * 0.1f;
+        }
+
+        yield return new WaitForSeconds(buff.Duration);
+        
+        _targetMoveSpeed -= speedBuff;
+        for(int i = 0; i < 10 ; i++){
+            yield return new WaitForSeconds(0.1f);
+            _moveSpeed -= speedBuff * 0.1f;
+        }
+        
     }
 }

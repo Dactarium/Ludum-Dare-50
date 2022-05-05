@@ -167,7 +167,7 @@ GameObject:
   - component: {fileID: 3146352698221460149}
   - component: {fileID: 1537592650}
   - component: {fileID: 2147220692483579662}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Player
   m_TagString: Player
   m_Icon: {fileID: -5397416234189338067, guid: 0000000000000000d000000000000000, type: 0}
@@ -335,7 +335,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fdb94c66fbf8c66489451f9dcb7c678d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _moveSpeed: 10
+  _baseMoveSpeed: 10
   _reaper: {fileID: 570528986090690938}
 --- !u!114 &2147220692483579662
 MonoBehaviour:
@@ -1886,6 +1886,14 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 3112412391398011464}
     m_Modifications:
+    - target: {fileID: -8652843048920355764, guid: 431dbce9d7d62814ba63a540408200f7, type: 3}
+      propertyPath: _bloodEffect
+      value: 
+      objectReference: {fileID: 1407402442211574, guid: 5d31a5b9b348544439d8079453188ecc, type: 3}
+    - target: {fileID: -8652843048920355764, guid: 431dbce9d7d62814ba63a540408200f7, type: 3}
+      propertyPath: _sparkEffect
+      value: 
+      objectReference: {fileID: 1793199471691246, guid: 47300f85e6323324bb54c48aa574c9e8, type: 3}
     - target: {fileID: 1353487328190166, guid: 431dbce9d7d62814ba63a540408200f7, type: 3}
       propertyPath: m_Name
       value: SM_Wep_SpiritDemon_01
