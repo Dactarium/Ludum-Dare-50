@@ -16,5 +16,5 @@ MonoBehaviour:
   ColletingTimeGainMultiplier: 1
   LuckPoint: 100
   Duration: 0
-  PlayerSpeedMultiplier: 1
-  PlayerDoubleTimeGain: 0
+  SpeedMultiplier: 1
+  DoubleTimeGain: 0
