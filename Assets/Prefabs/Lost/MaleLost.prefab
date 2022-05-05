@@ -784,6 +784,7 @@ MonoBehaviour:
   _possibleBuffs:
   - {fileID: 11400000, guid: 506891f58a847aa4ea79bc265d255719, type: 2}
   - {fileID: 11400000, guid: 60ce5ca711dc04749ab05c2ef0cd73d9, type: 2}
+  - {fileID: 11400000, guid: 1a61762068b51c749ae530458acd5d52, type: 2}
 --- !u!1 &1486608995778862
 GameObject:
   m_ObjectHideFlags: 0
