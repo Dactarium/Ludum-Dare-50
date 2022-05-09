@@ -55,7 +55,7 @@ public class GetSoulFromTarget : MainEvent
 
         Timer.Instance.Add(_timeGain);
 
-        UIManager.Instance.DeathInfo = Target.name + " died because of <color=#FF0000>" + DeathCausePicker.Instance.RandomCause + "</color>";
+        NewsLine.Instance.EnqueueNews = DeathCausePicker.Instance.RandomCause(Target.name);
 
         GameEventManager.Instance.RandomMainEvent();
 

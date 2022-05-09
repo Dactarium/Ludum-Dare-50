@@ -8,10 +8,9 @@ public class DeathCausePicker : MonoBehaviour
     [SerializeField] private TextAsset json;
     private JsonData data;
     
-    public string RandomCause{
-        get{
-            return data.causes[Random.Range(0, data.causes.Length)];
-        }
+    public string RandomCause(string name){
+            string cause = data.causes[Random.Range(0, data.causes.Length)];
+            return cause.Replace("{name}", name);
     }
 
     void Awake(){

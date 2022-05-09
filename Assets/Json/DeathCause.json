@@ -1,14 +1,15 @@
 {
     "causes": [
-        "Being poisoned",
-        "Balanced diet",
-        "Playing mobile games",
-        "Stopped breathing",
-        "Eating too many carrots",
-        "Choking on oxygen",
-        "Meaning of life",
-        "Hacked NASA with html",
-        "Has smurf account in life",
-        "Already deadinside"
+        "{name} died because of being poisoned",
+        "{name} died because of balanced diet",
+        "{name} died because of playing mobile games",
+        "{name} stopped breathing",
+        "{name} eat too many carrots",
+        "{name} choked on oxygen",
+        "{name} found meaning of life \t\t\t\t\t It's not 42 \t\t\t\t\t Also, {name} is dead",
+        "{name} died when trying to hack NASA with html",
+        "{name} has banned from life",
+        "{name} is already deadinside ignore him!"
     ]
+
 }
