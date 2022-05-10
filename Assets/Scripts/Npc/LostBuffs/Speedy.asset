@@ -15,6 +15,7 @@ MonoBehaviour:
   Material: {fileID: 2100000, guid: c52e5e82a79deb84cad7c26bb094bcd3, type: 2}
   ColletingTimeGainMultiplier: 0.5
   LuckPoint: 30
+  InOutDelay: 1
   Duration: 3
   SpeedMultiplier: 1.5
   DoubleTimeGain: 0

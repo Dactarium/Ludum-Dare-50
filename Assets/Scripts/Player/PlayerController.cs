@@ -78,26 +78,26 @@ public class PlayerController : MonoBehaviour
     }
 
     public void StartLostBuff(LostBuff buff){
-        StartCoroutine(ApplyBuff(buff));
+        if(buff.SpeedMultiplier != 1)StartCoroutine(ApplySpeedBuff(buff));
     }
 
-    IEnumerator ApplyBuff(LostBuff buff){
+    IEnumerator ApplySpeedBuff(LostBuff buff){
         float speedBuff = _baseMoveSpeed * buff.SpeedMultiplier - _baseMoveSpeed;
 
         speedBuff = (speedBuff + _targetMoveSpeed > _maxMoveSpeed)? _maxMoveSpeed - _targetMoveSpeed: (speedBuff + _targetMoveSpeed < _minMoveSpeed)? _minMoveSpeed - _targetMoveSpeed: speedBuff; 
 
         _targetMoveSpeed += speedBuff;
-        for(int i = 0; i < 10 ; i++){
+        for(float i = 0; i < buff.InOutDelay ; i += .1f){
             yield return new WaitForSeconds(0.1f);
-            _moveSpeed += speedBuff * 0.1f;
+            _moveSpeed += speedBuff / buff.InOutDelay / 10f;
         }
 
         yield return new WaitForSeconds(buff.Duration);
         
         _targetMoveSpeed -= speedBuff;
-        for(int i = 0; i < 10 ; i++){
+        for(float i = 0; i < buff.InOutDelay; i += .1f){
             yield return new WaitForSeconds(0.1f);
-            _moveSpeed -= speedBuff * 0.1f;
+            _moveSpeed -= speedBuff / buff.InOutDelay / 10f ;
         }
         
     }

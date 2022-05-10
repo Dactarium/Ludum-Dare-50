@@ -13,8 +13,9 @@ MonoBehaviour:
   m_Name: Boomer
   m_EditorClassIdentifier: 
   Material: {fileID: 2100000, guid: 2a9894e1687d10a4e9ded812a355a774, type: 2}
-  ColletingTimeGainMultiplier: 2
+  ColletingTimeGainMultiplier: 4
   LuckPoint: 15
+  InOutDelay: 0.5
   Duration: 0
   SpeedMultiplier: 0.1
   DoubleTimeGain: 0

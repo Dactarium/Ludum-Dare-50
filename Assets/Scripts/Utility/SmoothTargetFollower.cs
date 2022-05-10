@@ -12,10 +12,15 @@ public class SmoothTargetFollower : MonoBehaviour
     [SerializeField] private bool _forwardOffsetWhileMoving;
     [SerializeField] private float _forwardOffsetLength;
 
+    [SerializeField] private bool _areaFollow;
+    [SerializeField] private float _areaRange;
+
     void LateUpdate(){
         if(!Target) return;
 
         Vector3 forwardOffset = Vector3.zero;
+
+        if(_areaFollow && Vector3.Distance(transform.position, Target.position) < _areaRange) return;
 
         if(_forwardOffsetWhileMoving) forwardOffset =  Target.forward * _forwardOffsetLength * InputManager.Instance.Movement.magnitude;
 

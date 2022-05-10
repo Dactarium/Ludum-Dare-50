@@ -33,7 +33,7 @@ public class UIManager : MonoBehaviour
             return _timer.text;
         }
     }
-
+    
     [SerializeField] private TextMeshProUGUI _timer;
 
     public string TaskCounter{
@@ -45,22 +45,6 @@ public class UIManager : MonoBehaviour
         }
     }
     [SerializeField] private TextMeshProUGUI _taskCounter;
-
-    private Coroutine _deathInfoCoroutine;
-    public string DeathInfo{
-        set{
-            _deathInfo.text = value;
-            _deathInfo.gameObject.SetActive(true);
-            if(_deathInfoCoroutine != null)StopCoroutine(_deathInfoCoroutine);
-            _deathInfoCoroutine = StartCoroutine(DisableDeathInfo());
-        }
-        get{
-            return _deathInfo.text;
-        }
-    }
-    [SerializeField] private TextMeshProUGUI _deathInfo;
-    
-    [SerializeField] float _infoTime;
 
     [SerializeField] private TextMeshProUGUI _win;
     [SerializeField] private TextMeshProUGUI _lose;
@@ -104,10 +88,5 @@ public class UIManager : MonoBehaviour
         EventSystem.current.SetSelectedGameObject(null);
         EventSystem.current.SetSelectedGameObject(selected);
 
-    }
-
-    IEnumerator DisableDeathInfo(){
-        yield return new WaitForSecondsRealtime(_infoTime);
-        _deathInfo.gameObject.SetActive(false);
     }
 }

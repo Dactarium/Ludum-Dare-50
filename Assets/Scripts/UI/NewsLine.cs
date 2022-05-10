@@ -59,13 +59,13 @@ public class NewsLine : MonoBehaviour
 
         yield return new WaitForEndOfFrame();
         
-        Vector2 position = _newsText.anchoredPosition;
+        Vector3 position;
 
         do{
-
+            position = _newsText.anchoredPosition;
             position.x -= Time.deltaTime * 100f * textSpeed;
             _newsText.anchoredPosition = position;
-
+            
             yield return new WaitForEndOfFrame();
 
         }while(position.x > -_newsText.sizeDelta.x);
