@@ -7,6 +7,20 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private float _maxMoveSpeed;
     [SerializeField] private float _minMoveSpeed;
     [SerializeField] private float _baseMoveSpeed;
+
+    private PlayerBuffEffectController _buffController;
+
+    private float MoveSpeed{
+        set{
+            _buffController.SetActiveSpeedTrails(value > _baseMoveSpeed);
+            _buffController.SetActiveSlowEffect(value < _baseMoveSpeed);
+            _moveSpeed = value;
+        }
+        get{
+            return _moveSpeed;
+        }
+    }
+
     private float _moveSpeed;
     private float _targetMoveSpeed;
     private readonly  float _gravityValue = -9.81f;
@@ -24,7 +38,9 @@ public class PlayerController : MonoBehaviour
     }
 
     void Awake(){
-        _moveSpeed = _baseMoveSpeed;
+        _buffController = GetComponent<PlayerBuffEffectController>();
+
+        MoveSpeed = _baseMoveSpeed;
         _targetMoveSpeed = _moveSpeed;
     }
 
@@ -89,7 +105,7 @@ public class PlayerController : MonoBehaviour
         _targetMoveSpeed += speedBuff;
         for(float i = 0; i < buff.InOutDelay ; i += .1f){
             yield return new WaitForSeconds(0.1f);
-            _moveSpeed += speedBuff / buff.InOutDelay / 10f;
+            MoveSpeed += speedBuff / buff.InOutDelay / 10f;
         }
 
         yield return new WaitForSeconds(buff.Duration);
@@ -97,7 +113,7 @@ public class PlayerController : MonoBehaviour
         _targetMoveSpeed -= speedBuff;
         for(float i = 0; i < buff.InOutDelay; i += .1f){
             yield return new WaitForSeconds(0.1f);
-            _moveSpeed -= speedBuff / buff.InOutDelay / 10f ;
+            MoveSpeed -= speedBuff / buff.InOutDelay / 10f ;
         }
         
     }
