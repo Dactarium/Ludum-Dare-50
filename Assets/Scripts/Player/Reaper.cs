@@ -7,7 +7,7 @@ public class Reaper : MonoBehaviour
 {
     public static Reaper Instance {get; private set;}
 
-    public event Action<Reaper> OnHumanCollect;
+    public event Action<Reaper, Transform> OnPersonCollect;
     public event Action<Reaper> OnLostCollect;
     [SerializeField] private GameObject _bloodEffect;
     [SerializeField] private GameObject _sparkEffect;
@@ -27,7 +27,7 @@ public class Reaper : MonoBehaviour
         Npc npc = other.GetComponent<Npc>();
         float  integrity = 0;
         if(npc.GetType() != typeof(Lost)){
-            OnHumanCollect?.Invoke(this);
+            OnPersonCollect?.Invoke(this, other.transform);
             KillEffect(_bloodEffect, other.ClosestPoint(transform.position));
             integrity = ConfigManager.Instance.Human_Integrity;
             CameraShake.Instance.AddTrauma(0.33f);

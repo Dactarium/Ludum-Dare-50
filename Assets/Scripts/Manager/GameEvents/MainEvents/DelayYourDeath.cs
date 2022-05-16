@@ -19,11 +19,11 @@ public class DelayYourDeath : MainEvent
     }
 
     public override void Initial(){
-        Reaper.Instance.OnHumanCollect += OnCollectSoul;
+        Reaper.Instance.OnPersonCollect += OnCollectSoul;
         Reaper.Instance.OnLostCollect += OnCollectSoul;
 
         _deathMark = GameObject.Instantiate(ConfigManager.Instance.DeathMark);
-        _deathMark.GetComponent<TargetFollower>().Target = ConfigManager.Instance.Player;
+        _deathMark.GetComponent<TargetFollower>().Target = PlayerController.Instance.transform;
 
         SetEventDetail();
     }
@@ -33,13 +33,17 @@ public class DelayYourDeath : MainEvent
     public override void Shutdown(){
         _soulCounter = 0;
 
-        Reaper.Instance.OnHumanCollect -= OnCollectSoul;
+        Reaper.Instance.OnPersonCollect -= OnCollectSoul;
         Reaper.Instance.OnLostCollect -= OnCollectSoul;
 
         GameObject.Destroy(_deathMark);
     }
 
     void OnCollectSoul(Reaper reaper){
+        OnCollectSoul(reaper, null);
+    }
+
+    void OnCollectSoul(Reaper reaper, Transform person){
         _soulCounter++;
 
         SetEventDetail();

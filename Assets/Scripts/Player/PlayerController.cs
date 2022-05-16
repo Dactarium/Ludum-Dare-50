@@ -4,9 +4,13 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {   
+    public static PlayerController Instance {get; private set;} 
+
     [SerializeField] private float _maxMoveSpeed;
     [SerializeField] private float _minMoveSpeed;
     [SerializeField] private float _baseMoveSpeed;
+    
+    public float BaseMoveSpeed => _baseMoveSpeed;
 
     private PlayerBuffEffectController _buffController;
 
@@ -38,6 +42,8 @@ public class PlayerController : MonoBehaviour
     }
 
     void Awake(){
+        Instance = this;
+
         _buffController = GetComponent<PlayerBuffEffectController>();
 
         MoveSpeed = _baseMoveSpeed;

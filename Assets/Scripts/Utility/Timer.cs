@@ -16,6 +16,17 @@ public class Timer : MonoBehaviour
     private Queue<GameObject> _spawnQueue = new Queue<GameObject>();
     private bool _isSpawned = true;
     private float _time = -1;
+
+    private float CurrentTime{
+        set{
+            _time = value;
+            UIManager.Instance.Timer = Mathf.CeilToInt(_time).ToString();
+            if(_time <= 0) OnZero?.Invoke(this);
+        }
+        get{
+            return _time;
+        }
+    }
     void Awake()
     {
         Instance = this;
@@ -25,26 +36,28 @@ public class Timer : MonoBehaviour
     {
         if(InputManager.Instance.Pause)return;
 
-        if(_time > 0){
-            _time -= Time.deltaTime;
-    
-            UIManager.Instance.Timer = Mathf.CeilToInt(_time).ToString();
-
-            if(_time <= 0) OnZero?.Invoke(this);
-        }
+        if(CurrentTime >= 0) CurrentTime -= Time.deltaTime;
 
         if(_isSpawned && _spawnQueue.Count > 0) StartCoroutine(ShowTimeGain());
     }
 
     public void Set(float seconds){
-        _time = seconds;
+        CurrentTime = seconds;
     }
 
     public void Add(float seconds){
-        _time += seconds;
+        CurrentTime += seconds;
         GameObject timegain = Instantiate(_timeGainPrefab, transform.parent as RectTransform);
         timegain.GetComponent<RectTransform>().anchoredPosition = _position;
-        timegain.GetComponentInChildren<TextMeshProUGUI>().text = "+" + seconds.ToString();
+
+        if(seconds < 0) {
+            timegain.GetComponentInChildren<TextMeshProUGUI>().color = Color.red;
+        }else{
+            timegain.GetComponentInChildren<TextMeshProUGUI>().text = "+";
+        }
+
+        timegain.GetComponentInChildren<TextMeshProUGUI>().text += seconds.ToString();
+
         timegain.SetActive(false);
 
         _spawnQueue.Enqueue(timegain);

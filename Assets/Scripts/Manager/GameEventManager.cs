@@ -29,7 +29,8 @@ public class GameEventManager : MonoBehaviour
     #endregion
     
     #region Side Events
-        CollectLosts _collectLosts;
+        private CollectLosts _collectLosts;
+        private CollectingSoulTooSoon _collectingSoulTooSoon;
     #endregion
 
     void Awake(){
@@ -40,8 +41,10 @@ public class GameEventManager : MonoBehaviour
         GetSoulFromTarget = new GetSoulFromTarget();
         DelayYourDeath = new DelayYourDeath();
         _collectLosts = new CollectLosts();
+        _collectingSoulTooSoon = new CollectingSoulTooSoon();
 
         _collectLosts.Initial();
+        _collectingSoulTooSoon.Initial();
     }
 
     void Update(){
