@@ -21,26 +21,23 @@ public class Reaper : MonoBehaviour
 
     void OnTriggerEnter(Collider other){
         if(!other.GetComponent<Npc>()) return;
-        if(_willDie.Contains(other)) return;
-        _willDie.Add(other);
+        
 
         Npc npc = other.GetComponent<Npc>();
-        float  integrity = 0;
+
         if(npc.GetType() != typeof(Lost)){
             OnPersonCollect?.Invoke(this, other.transform);
             KillEffect(_bloodEffect, other.ClosestPoint(transform.position));
-            integrity = ConfigManager.Instance.Human_Integrity;
-            CameraShake.Instance.AddTrauma(0.33f);
+            CameraShake.Instance.AddTrauma(ConfigManager.Instance.Human_Trauma);
         }else{
             LastCollectedLostBuff = (npc as Lost).Buff;
             OnLostCollect?.Invoke(this);
             KillEffect(_sparkEffect, other.ClosestPoint(transform.position));
-            integrity = ConfigManager.Instance.Lost_Integrity;
-            CameraShake.Instance.AddTrauma(0.1f);
+            CameraShake.Instance.AddTrauma(ConfigManager.Instance.Lost_Trauma);
             GetComponentInParent<PlayerController>().StartLostBuff(LastCollectedLostBuff);
         }
         
-        StartCoroutine(SlowMotionKill(npc,  integrity));
+        npc.Kill();
     }
 
     void KillEffect(GameObject effect, Vector3 position){
@@ -48,20 +45,6 @@ public class Reaper : MonoBehaviour
 
         newEffect.transform.position = position;
         newEffect.transform.right = transform.forward;
-    }
-
-    IEnumerator SlowMotionKill(Npc npc, float integrity){
-        _activeCoroutineCount++;
-        
-        Time.timeScale = 1 - integrity;
-
-        yield return new WaitForSecondsRealtime(0.07f);
-        
-        npc.Kill();
-        _willDie.RemoveAt(0);
-
-        _activeCoroutineCount--;
-        if(_activeCoroutineCount < 1) Time.timeScale = 1f;
     }
 
 }

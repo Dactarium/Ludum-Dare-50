@@ -12,8 +12,10 @@ public class MainMenuManager : MonoBehaviour
     [SerializeField] private Slider _masterVolumeSlider;
     [SerializeField] private Slider _musicVolumeSlider;
     [SerializeField] private Slider _sfxVolumeSlider;
+
     [Header("Visual")]
     [SerializeField] private Toggle _filmGrainToggle;
+    [SerializeField] private Slider _zoomSlider;
    
     void Start(){
         _masterVolumeSlider.value = PlayerPrefs.GetFloat("MasterVolume", 0f);
@@ -25,6 +27,7 @@ public class MainMenuManager : MonoBehaviour
         _mixer.SetFloat("SFX", _sfxVolumeSlider.value);
 
         _filmGrainToggle.isOn = PlayerPrefs.GetInt("FilmGrain", 1) == 1;
+        _zoomSlider.value = PlayerPrefs.GetFloat("Zoom", 15f);
     }
     
     public void Play(){
@@ -53,6 +56,10 @@ public class MainMenuManager : MonoBehaviour
 
     public void EnableFilmGrain(bool enable){
         PlayerPrefs.SetInt("FilmGrain", enable?1:0);
+    }
+
+    public void ChangeZoomValue(float value){
+        PlayerPrefs.SetFloat("Zoom", value);
     }
 
 }

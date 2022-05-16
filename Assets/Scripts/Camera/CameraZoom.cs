@@ -12,29 +12,31 @@ public class CameraZoom : MonoBehaviour
     private InputManager _inputManager;
 
     private Vector3 _camXZ;
+
+    private float zoom;
     void Start(){
         _inputManager = InputManager.Instance;
         _camXZ = _camera.transform.localPosition;
         _camXZ.y = 0;
+
+        zoom = PlayerPrefs.GetFloat("Zoom", 15f);
+        AddZoom(0);
     }
 
     void LateUpdate(){
         if(_inputManager.Scroll == 0) return;
+
+        AddZoom(-_inputManager.Scroll);
+    }
+
+    public void AddZoom(float amount){
+        zoom += amount;
+
+        if(zoom < _minDistance) zoom = _minDistance;
+        else if(zoom > _maxDistance) zoom = _maxDistance;
         
-        float scrollDelta = _inputManager.Scroll;
-    
-        _camera.transform.localPosition -= Vector3.up * scrollDelta;
-
-        if(_camera.transform.localPosition.y < _minDistance){
-
-            _camera.transform.localPosition = _camXZ + Vector3.up * _minDistance;
-
-        }else if(_camera.transform.localPosition.y > _maxDistance){
-
-            _camera.transform.localPosition = _camXZ + Vector3.up * _maxDistance;
-
-        }
-
+        PlayerPrefs.SetFloat("Zoom", zoom);
+        _camera.transform.localPosition = _camXZ + Vector3.up * zoom;
         _camera.transform.LookAt(transform);
     }
 }

@@ -59,14 +59,14 @@ public class ConfigManager : MonoBehaviour
     #region Npc Profiles
         [Header("Human")]
         #region
-            [Rename("Integrity")] [SerializeField] float _human_Integrity;
-            public float Human_Integrity {get => _human_Integrity;}
+            [Range(0f, 1f)] [SerializeField] float _human_Trauma;
+            public float Human_Trauma {get => _human_Trauma;}
         #endregion
         
         [Header("Lost")]
         #region
-            [Rename("Integrity")] [SerializeField] float _lost_Integrity;
-            public float Lost_Integrity {get => _lost_Integrity;}
+            [Range(0f, 1f)] [SerializeField] float _lost_Trauma;
+            public float Lost_Trauma {get => _lost_Trauma;}
         #endregion
     #endregion
     void Awake(){
