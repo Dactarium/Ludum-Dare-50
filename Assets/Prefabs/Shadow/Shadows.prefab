@@ -4890,7 +4890,7 @@ Transform:
   m_GameObject: {fileID: 1679583188231065921}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 2, y: 2, z: 2}
+  m_LocalScale: {x: 0.5, y: 0.5, z: 0.5}
   m_Children: []
   m_Father: {fileID: 1679583188617915275}
   m_RootOrder: 0
@@ -4974,7 +4974,7 @@ Transform:
   m_GameObject: {fileID: 1679583188617915272}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 1, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 2, y: 2, z: 2}
   m_Children:
   - {fileID: 1679583188231065920}
   - {fileID: 1679583189001708632}
@@ -5072,9 +5072,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 64020c4921ca3bd4ebe7d1e008d4ea79, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _moveSpeedMultiplier: 0.88
+  _moveSpeedMultiplier: 0.89
   _instability: 4
-  _damage: 1
+  _damage: 1.5
+  _onDestroyEffect: {fileID: 6092170159092039360, guid: df339ba43b1a41f4792246e6e40e1d1f, type: 3}
 --- !u!1 &1679583189001708633
 GameObject:
   m_ObjectHideFlags: 0
@@ -5190,8 +5191,8 @@ ParticleSystem:
     startLifetime:
       serializedVersion: 2
       minMaxState: 3
-      scalar: 0.3
-      minScalar: 0.2
+      scalar: 0.4
+      minScalar: 0.3
       maxCurve:
         serializedVersion: 2
         m_Curve:

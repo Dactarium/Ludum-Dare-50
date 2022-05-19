@@ -8,7 +8,8 @@ public class Shadow : MonoBehaviour
     [SerializeField] private float _instability;
     [SerializeField] private float _damage;
 
-    private Rigidbody _rigidbody;
+    [SerializeField] private GameObject _onDestroyEffect;
+
     private Transform _target;
     private Vector3 _direction => (_target.position - transform.position).normalized + _instabilityVector;
     private Vector3 _instabilityVector {
@@ -20,16 +21,39 @@ public class Shadow : MonoBehaviour
     }
 
     private float _baseMoveSpeed;
+    private float _startLifespan;
+    private float _lifeSpan;
 
-    private float _lifespan;
+    private float LifeSpan{
+        get => _lifeSpan;
+        set{
+            _lifeSpan = value;
+            _emissionModule.rateOverTime = _lifeSpan / _startLifespan * _startEmissionRate;
+
+            if(_lifeSpan > 0) return;
+
+            Destroy(gameObject);
+            Instantiate<GameObject>(_onDestroyEffect, transform.position, transform.rotation);
+        }
+    }
+
+    private float _startEmissionRate;
     private bool _readyForAttack = true;
+
+    private Rigidbody _rigidbody;
+    private ParticleSystem _particleSystem;
+    private ParticleSystem.EmissionModule _emissionModule;
     
     void Awake(){
         _rigidbody = GetComponent<Rigidbody>();
+        _particleSystem = GetComponentInChildren<ParticleSystem>();
+        _emissionModule = _particleSystem.emission;
     }
 
     IEnumerator Start(){
-        _lifespan = ConfigManager.Instance.CollectingSoulTooSoon_TimeGain * 10f;
+        _startLifespan = ConfigManager.Instance.CollectingSoulTooSoon_TimeGain * 10f;
+        _startEmissionRate = _particleSystem.emission.rateOverTime.constant;
+        _lifeSpan = _startLifespan;
         _baseMoveSpeed = PlayerController.Instance.BaseMoveSpeed;
 
         yield return new WaitForSeconds(1f);
@@ -39,7 +63,7 @@ public class Shadow : MonoBehaviour
 
     void Update(){
         if(!_target) return;
-        SpendLifeSpan(Time.deltaTime);
+        LifeSpan -= Time.deltaTime;
         Move();
         if(_readyForAttack && Vector3.Distance(_target.position, transform.position) < 1f) StartCoroutine(AttackTarget());
     }
@@ -53,18 +77,12 @@ public class Shadow : MonoBehaviour
         _readyForAttack = false;
 
         Timer.Instance.Add(-_damage);
-        SpendLifeSpan(_damage * 2f);
+        LifeSpan -= _damage * 2f;
 
         yield return new WaitForSeconds(1);
 
         _readyForAttack = true;
     }
 
-    private void SpendLifeSpan(float amount){
-        _lifespan -= Time.deltaTime;
-
-        if(_lifespan > 0) return;
-
-        Destroy(gameObject);
-    }
+    
 }
