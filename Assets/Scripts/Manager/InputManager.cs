@@ -6,6 +6,7 @@ using UnityEngine;
 public class InputManager : MonoBehaviour
 {
     public static InputManager Instance {get; private set;}
+    [SerializeField] private bl_Joystick _joystick;
 
     public event Action<InputManager> OnPause;
     public event Action<InputManager> OnUnpause;
@@ -36,6 +37,10 @@ public class InputManager : MonoBehaviour
     private bool _axisFire = false;
     void Awake(){
         Instance = this;
+
+        #if UNITY_ANDROID
+            _joystick.gameObject.SetActive(true);
+        #endif
     }
 
     void Update(){
@@ -46,8 +51,14 @@ public class InputManager : MonoBehaviour
         if(Pause) return;
 
         //Move Input
-        _movement.x = Input.GetAxis("Horizontal");
-        _movement.y = Input.GetAxis("Vertical");
+        _movement = Vector2.zero;
+
+        _movement.x += Input.GetAxis("Horizontal");  
+        _movement.y += Input.GetAxis("Vertical");
+        _movement.x += _joystick.Horizontal;
+        _movement.y += _joystick.Vertical;
+
+        _movement = _movement.normalized;
 
         //Mouse Input
         _mouse.x = Input.GetAxis("Mouse X");
