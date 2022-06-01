@@ -56,7 +56,7 @@ public class Timer : MonoBehaviour
             timegain.GetComponentInChildren<TextMeshProUGUI>().text = "+";
         }
 
-        timegain.GetComponentInChildren<TextMeshProUGUI>().text += seconds.ToString();
+        timegain.GetComponentInChildren<TextMeshProUGUI>().text += seconds.ToString("0.0");
 
         timegain.SetActive(false);
 
