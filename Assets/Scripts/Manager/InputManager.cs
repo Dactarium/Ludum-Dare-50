@@ -5,58 +5,67 @@ using UnityEngine;
 
 public class InputManager : MonoBehaviour
 {
-    public static InputManager Instance {get; private set;}
+    public static InputManager Instance { get; private set; }
     [SerializeField] private bl_Joystick _joystick;
 
     public event Action<InputManager> OnPause;
     public event Action<InputManager> OnUnpause;
 
-    public Vector2 Movement{
-        get{
+    public Vector2 Movement
+    {
+        get
+        {
             return _movement;
         }
-    } 
-    public Vector2 Mouse {
-        get{
+    }
+    public Vector2 Mouse
+    {
+        get
+        {
             return _mouse;
         }
     }
 
-    public float Scroll {
-        get{
+    public float Scroll
+    {
+        get
+        {
             return _scroll;
         }
     }
-    
-    public bool Attack {get; private set;} = false;
-    public bool Pause {get; private set;} = false;
+
+    public bool Attack { get; private set; } = false;
+    public bool Pause { get; private set; } = false;
     private Vector2 _movement;
     private Vector2 _mouse;
     private float _scroll;
 
     private bool _axisFire = false;
-    void Awake(){
+    void Awake()
+    {
         Instance = this;
 
-        #if UNITY_ANDROID
+#if UNITY_ANDROID
             _joystick.gameObject.SetActive(true);
-        #endif
+#endif
     }
 
-    void Update(){
-        if(Input.GetKeyDown(KeyCode.Escape) || Input.GetKeyDown(KeyCode.Pause) || Input.GetKeyDown(KeyCode.JoystickButton7)){
+    void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.Escape) || Input.GetKeyDown(KeyCode.Pause) || Input.GetKeyDown(KeyCode.JoystickButton7))
+        {
             TriggerPause();
         }
 
-        if(Pause) return;
+        if (Pause) return;
 
         //Move Input
         _movement = Vector2.zero;
 
-        _movement.x += Input.GetAxis("Horizontal");  
+        _movement.x += Input.GetAxis("Horizontal");
         _movement.y += Input.GetAxis("Vertical");
-        _movement.x += _joystick.Horizontal;
-        _movement.y += _joystick.Vertical;
+        // _movement.x += _joystick.Horizontal;
+        // _movement.y += _joystick.Vertical;
 
         _movement = _movement.normalized;
 
@@ -67,38 +76,42 @@ public class InputManager : MonoBehaviour
         //Scroll Input
         _scroll = Input.mouseScrollDelta.y;
 
-        if(Input.GetKeyDown(KeyCode.JoystickButton4)){
+        if (Input.GetKeyDown(KeyCode.JoystickButton4))
+        {
             _scroll += 1f;
         }
-        
-        if(Input.GetKeyDown(KeyCode.JoystickButton5)){
+
+        if (Input.GetKeyDown(KeyCode.JoystickButton5))
+        {
             _scroll -= 1f;
         }
 
         //Attack Input
-        if(Input.GetAxisRaw("Fire1") != 0)
+        if (Input.GetAxisRaw("Fire1") != 0)
         {
-            if(_axisFire == false) _axisFire = true;
-         
+            if (_axisFire == false) _axisFire = true;
+
         }
-        if(Input.GetAxisRaw("Fire1") == 0)
+        if (Input.GetAxisRaw("Fire1") == 0)
         {
             _axisFire = false;
         }
 
         Attack = _axisFire;
     }
-    
-    public void TriggerPause(){
+
+    public void TriggerPause()
+    {
         print(!Pause);
         Pause = !Pause;
-        if(Pause)OnPause?.Invoke(this);
+        if (Pause) OnPause?.Invoke(this);
         else OnUnpause?.Invoke(this);
     }
 
-    void OnDisable(){
+    void OnDisable()
+    {
         _movement = Vector2.zero;
         _mouse = Vector2.zero;
     }
-    
+
 }
