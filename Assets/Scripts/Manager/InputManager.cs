@@ -7,6 +7,7 @@ public class InputManager : MonoBehaviour
 {
     public static InputManager Instance { get; private set; }
     [SerializeField] private bl_Joystick _joystick;
+    [SerializeField] private GameObject _attackButton;
 
     public event Action<InputManager> OnPause;
     public event Action<InputManager> OnUnpause;
@@ -44,10 +45,6 @@ public class InputManager : MonoBehaviour
     void Awake()
     {
         Instance = this;
-
-#if UNITY_ANDROID
-            _joystick.gameObject.SetActive(true);
-#endif
     }
 
     void Update()
@@ -64,8 +61,14 @@ public class InputManager : MonoBehaviour
 
         _movement.x += Input.GetAxis("Horizontal");
         _movement.y += Input.GetAxis("Vertical");
-        // _movement.x += _joystick.Horizontal;
-        // _movement.y += _joystick.Vertical;
+
+        Vector2 joystickInput = Vector2.right * _joystick.Horizontal + Vector2.up * _joystick.Vertical;
+        joystickInput = joystickInput.normalized;
+        print(joystickInput);
+        _movement.x += joystickInput.x;
+        _movement.y += joystickInput.y;
+#if UNITY_ANDROID
+#endif
 
         _movement = _movement.normalized;
 
@@ -87,12 +90,18 @@ public class InputManager : MonoBehaviour
         }
 
         //Attack Input
-        if (Input.GetAxisRaw("Fire1") != 0)
+        float fireInput = Input.GetAxis("Fire1");
+#if UNITY_ANDROID
+#else
+        fireInput += Input.GetAxis("Fire1Mouse");
+#endif
+
+        if (fireInput != 0)
         {
             if (_axisFire == false) _axisFire = true;
 
         }
-        if (Input.GetAxisRaw("Fire1") == 0)
+        if (fireInput == 0)
         {
             _axisFire = false;
         }
@@ -106,6 +115,22 @@ public class InputManager : MonoBehaviour
         Pause = !Pause;
         if (Pause) OnPause?.Invoke(this);
         else OnUnpause?.Invoke(this);
+    }
+
+    public void CheckJoystick()
+    {
+#if UNITY_ANDROID
+        _joystick.gameObject.SetActive(true);
+        _attackButton.SetActive(true);
+#else
+        _attackButton.SetActive(false);
+        _joystick.gameObject.SetActive(false);
+#endif
+    }
+
+    public void AttackButton()
+    {
+        Attack = _axisFire = true;
     }
 
     void OnDisable()

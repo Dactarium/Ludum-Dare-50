@@ -5,16 +5,17 @@ public class GamePlayingState : GameBaseState
     private InputManager _inputManager;
     private Timer _timer;
 
-    private float _startTime; 
+    private float _startTime;
 
-    private int _taskCounter; 
+    private int _taskCounter;
     private bool _isTargetTaskCountReached = false;
     public override void BeginState(GameStateManager gameStateManager)
     {
-        _inputManager = InputManager.Instance; 
+        _inputManager = InputManager.Instance;
         _inputManager.enabled = true;
         _inputManager.OnPause += OnPause;
         _inputManager.OnUnpause += OnUnpause;
+        _inputManager.CheckJoystick();
 
         UIManager.Instance.ShowOnPlayingUI(true);
 
@@ -37,7 +38,7 @@ public class GamePlayingState : GameBaseState
     }
 
     public override void EndState(GameStateManager gameStateManager)
-    {   
+    {
         _timer.OnZero -= OnTimerZero;
 
         _inputManager.OnPause -= OnPause;
@@ -54,36 +55,47 @@ public class GamePlayingState : GameBaseState
 
     void OnTimerZero(Timer timer) => GameStateManager.Instance.EndGame();
 
-    void OnEventComplete(GameEvent gameEvent){
+    void OnEventComplete(GameEvent gameEvent)
+    {
         TaskCounter.Instance.Counter++;
     }
 
-    void OnTargetTaskCountReach(TaskCounter taskCounter){
+    void OnTargetTaskCountReach(TaskCounter taskCounter)
+    {
         _isTargetTaskCountReached = true;
         _inputManager.TriggerPause();
     }
 
-    void OnPause(InputManager inputManager){
-        if(_isTargetTaskCountReached){
+    void OnPause(InputManager inputManager)
+    {
+        if (_isTargetTaskCountReached)
+        {
             UIManager.Instance.ShowOnConditionComplete(true);
-        }else{
+        }
+        else
+        {
             UIManager.Instance.ShowOnPauseUI(true);
         }
 
         _inputManager.StartCoroutine(ChangeTimeScale(0));
     }
 
-    void OnUnpause(InputManager inputManager){
-        if(_isTargetTaskCountReached){
+    void OnUnpause(InputManager inputManager)
+    {
+        if (_isTargetTaskCountReached)
+        {
             UIManager.Instance.ShowOnConditionComplete(false);
-        }else{
+        }
+        else
+        {
             UIManager.Instance.ShowOnPauseUI(false);
         }
 
         _inputManager.StartCoroutine(ChangeTimeScale(1));
     }
 
-    IEnumerator ChangeTimeScale(float scale){
+    IEnumerator ChangeTimeScale(float scale)
+    {
         yield return new WaitForEndOfFrame();
         Time.timeScale = scale;
     }
