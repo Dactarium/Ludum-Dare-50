@@ -62,12 +62,12 @@ public class InputManager : MonoBehaviour
         _movement.x += Input.GetAxis("Horizontal");
         _movement.y += Input.GetAxis("Vertical");
 
+#if UNITY_ANDROID
         Vector2 joystickInput = Vector2.right * _joystick.Horizontal + Vector2.up * _joystick.Vertical;
         joystickInput = joystickInput.normalized;
         print(joystickInput);
         _movement.x += joystickInput.x;
         _movement.y += joystickInput.y;
-#if UNITY_ANDROID
 #endif
 
         _movement = _movement.normalized;
