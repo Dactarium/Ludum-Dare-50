@@ -68,9 +68,9 @@ public class InputManager : MonoBehaviour
         print(joystickInput);
         _movement.x += joystickInput.x;
         _movement.y += joystickInput.y;
+        _movement = _movement.normalized;
 #endif
 
-        _movement = _movement.normalized;
 
         //Mouse Input
         _mouse.x = Input.GetAxis("Mouse X");
